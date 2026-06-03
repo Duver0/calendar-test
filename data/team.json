@@ -1,8 +1,20 @@
 [
-  { "name": "Ana Gómez",    "shift": "s1", "colorIdx": 0, "dayOverrides": {} },
-  { "name": "Luis Torres",  "shift": "s2", "colorIdx": 1, "dayOverrides": {} },
-  { "name": "María Ruiz",   "shift": "s3", "colorIdx": 2, "dayOverrides": {} },
-  { "name": "Carlos Díaz",  "shift": "s4", "colorIdx": 3, "dayOverrides": {} },
-  { "name": "Sofía Reyes",  "shift": "s1", "colorIdx": 4, "dayOverrides": {} },
-  { "name": "Andrés López", "shift": "",   "colorIdx": 5, "dayOverrides": {} }
+  {
+    "name": "Carlos Díaz",
+    "shift": "s4",
+    "colorIdx": 3,
+    "dayOverrides": {}
+  },
+  {
+    "name": "Sofía Reyes",
+    "shift": "s1",
+    "colorIdx": 4,
+    "dayOverrides": {}
+  },
+  {
+    "name": "Andrés López",
+    "shift": "",
+    "colorIdx": 5,
+    "dayOverrides": {}
+  }
 ]
