@@ -3,14 +3,15 @@ import type { GitHubConfig } from '@/types';
 import { Modal } from './Modal';
 
 interface GitHubConfigModalProps {
+  initial?: GitHubConfig;
   onSave: (config: GitHubConfig) => void;
   onClose: () => void;
 }
 
-export function GitHubConfigModal({ onSave, onClose }: GitHubConfigModalProps) {
-  const [owner, setOwner] = useState('');
-  const [repo, setRepo] = useState('');
-  const [token, setToken] = useState('');
+export function GitHubConfigModal({ initial, onSave, onClose }: GitHubConfigModalProps) {
+  const [owner, setOwner] = useState(initial?.owner ?? '');
+  const [repo, setRepo] = useState(initial?.repo ?? '');
+  const [token, setToken] = useState(initial?.token ?? '');
 
   const handleSubmit = () => {
     if (!owner.trim() || !repo.trim() || !token.trim()) return;

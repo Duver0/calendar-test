@@ -308,6 +308,7 @@ export default function Home() {
 
       {gitHubConfigModal && (
         <GitHubConfigModal
+          initial={gitHubConfig ?? undefined}
           onSave={handleGitHubConfigSave}
           onClose={() => setGitHubConfigModal(false)}
         />
