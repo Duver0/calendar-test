@@ -1,20 +1,14 @@
 [
   {
-    "name": "Carlos Díaz",
-    "shift": "s4",
-    "colorIdx": 3,
+    "name": "mi amorcito hermosa preciosa",
+    "shift": "s2",
+    "colorIdx": 0,
     "dayOverrides": {}
   },
   {
-    "name": "Sofía Reyes",
+    "name": "yo",
     "shift": "s1",
-    "colorIdx": 4,
-    "dayOverrides": {}
-  },
-  {
-    "name": "Andrés López",
-    "shift": "",
-    "colorIdx": 5,
+    "colorIdx": 1,
     "dayOverrides": {}
   }
 ]
