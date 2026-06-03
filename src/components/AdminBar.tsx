@@ -79,22 +79,20 @@ export function AdminBar({
           />
         )}
 
-        {!hasGitHubConfig && (
-          <button
-            onClick={onConfigureGitHub}
-            style={{
-              fontSize: 12,
-              padding: '4px 12px',
-              border: '0.5px solid var(--color-border-secondary)',
-              borderRadius: 'var(--border-radius-md)',
-              background: 'transparent',
-              color: 'var(--color-text-secondary)',
-              cursor: 'pointer',
-            }}
-          >
-            🔗 Configurar GitHub
-          </button>
-        )}
+        <button
+          onClick={onConfigureGitHub}
+          style={{
+            fontSize: 12,
+            padding: '4px 12px',
+            border: '0.5px solid var(--color-border-secondary)',
+            borderRadius: 'var(--border-radius-md)',
+            background: 'transparent',
+            color: 'var(--color-text-secondary)',
+            cursor: 'pointer',
+          }}
+        >
+          🔗 {hasGitHubConfig ? 'Editar GitHub' : 'Configurar GitHub'}
+        </button>
 
         <button
           onClick={onSaveLocal}
