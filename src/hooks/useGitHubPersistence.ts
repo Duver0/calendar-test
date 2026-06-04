@@ -35,30 +35,23 @@ export function useGitHubPersistence() {
   );
 
   const saveToGitHub = useCallback(
-    async (
-      team: TeamMember[],
-      config: GitHubConfig,
-      options?: { createPR?: boolean; prTitle?: string },
-    ): Promise<{ prUrl?: string } | null> => {
+    async (team: TeamMember[], config: GitHubConfig): Promise<boolean> => {
       setSaving(true);
       setError(null);
       setSuccessMsg(null);
       try {
         const service = new GitHubService(config);
-        const result = await service.saveTeamData(team, options);
+        await service.saveTeamData(team);
         await storageService.saveTeam(team);
-        const msg = result.prUrl
-          ? `PR creado: ${result.prUrl}`
-          : 'Cambios guardados en GitHub';
-        setSuccessMsg(msg);
-        return result;
+        setSuccessMsg('Cambios guardados en GitHub');
+        return true;
       } catch (e) {
         const msg =
           e instanceof GitHubServiceError
             ? e.message
             : 'Error al guardar en GitHub';
         setError(msg);
-        return null;
+        return false;
       } finally {
         setSaving(false);
       }

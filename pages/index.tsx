@@ -25,7 +25,6 @@ export default function Home() {
   const [addModal, setAddModal] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState<number | null>(null);
   const [dayModal, setDayModal] = useState<DayClickPayload | null>(null);
-  const [savedLocally, setSavedLocally] = useState(false);
   const [gitHubConfigModal, setGitHubConfigModal] = useState(false);
   const [gitHubConfig, setGitHubConfig] = useState<GitHubConfig | null>(null);
   const [syncing, setSyncing] = useState(false);
@@ -35,7 +34,7 @@ export default function Home() {
   const { isAdmin, pinModal, setPinModal, requestAdmin, verifyPin, logout } = useAuth();
   const { today, calYear, calMonth, prevMonth, nextMonth } = useCalendar();
   const { width, isDesktop } = useResponsive();
-  const { saving, loading, error, successMsg, loadFromGitHub, saveToGitHub, clearMessages } =
+  const { saving, error, successMsg, loadFromGitHub, saveToGitHub, clearMessages } =
     useGitHubPersistence();
 
   const autoSyncDone = useRef(false);
@@ -75,22 +74,13 @@ export default function Home() {
     })();
   }, [loaded, gitHubConfig, loadFromGitHub, setTeam]);
 
-  const handleSaveLocal = useCallback(async () => {
-    await storageService.saveTeam(team);
-    setSavedLocally(true);
-    setTimeout(() => setSavedLocally(false), 2000);
-  }, [team]);
-
-  const handleSaveGitHub = useCallback(
-    async (createPR: boolean, prTitle?: string) => {
-      if (!gitHubConfig) {
-        setGitHubConfigModal(true);
-        return;
-      }
-      await saveToGitHub(team, gitHubConfig, { createPR, prTitle });
-    },
-    [team, gitHubConfig, saveToGitHub],
-  );
+  const handleSaveGitHub = useCallback(async () => {
+    if (!gitHubConfig) {
+      setGitHubConfigModal(true);
+      return;
+    }
+    await saveToGitHub(team, gitHubConfig);
+  }, [team, gitHubConfig, saveToGitHub]);
 
   const handleGitHubConfigSave = useCallback(
     async (config: GitHubConfig) => {
@@ -163,10 +153,7 @@ export default function Home() {
     >
       {isAdmin && (
         <AdminBar
-          team={team}
           saving={saving}
-          savedLocally={savedLocally}
-          onSaveLocal={handleSaveLocal}
           onSaveGitHub={handleSaveGitHub}
           onConfigureGitHub={() => setGitHubConfigModal(true)}
           hasGitHubConfig={!!gitHubConfig}
