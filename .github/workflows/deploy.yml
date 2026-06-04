@@ -35,12 +35,22 @@ jobs:
         env:
           NEXT_PUBLIC_ADMIN_PIN: ${{ secrets.NEXT_PUBLIC_ADMIN_PIN }}
           NEXT_PUBLIC_BASE_PATH: /calendar-test
+          NEXT_PUBLIC_BUILD_TIME: ${{ github.run_number }}-${{ github.sha }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Add .nojekyll for GitHub Pages
         run: touch out/.nojekyll
+
+      - name: Add cache-control headers for GitHub Pages
+        run: |
+          cat > out/_headers << 'EOF'
+          /*.html
+            Cache-Control: no-cache
+          /_next/static/*
+            Cache-Control: public, max-age=31536000, immutable
+          EOF
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

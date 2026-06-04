@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import type { DayClickPayload, GitHubConfig } from '@/types';
 import { storageService } from '@/services/storage';
 import { useTeamState } from '@/hooks/useTeamState';
@@ -28,6 +28,7 @@ export default function Home() {
   const [savedLocally, setSavedLocally] = useState(false);
   const [gitHubConfigModal, setGitHubConfigModal] = useState(false);
   const [gitHubConfig, setGitHubConfig] = useState<GitHubConfig | null>(null);
+  const [syncing, setSyncing] = useState(false);
 
   const { team, setTeam, changeShift, addMember, removeMember, setDayOverride, getShiftForDay } =
     useTeamState([]);
@@ -36,6 +37,8 @@ export default function Home() {
   const { width, isDesktop } = useResponsive();
   const { saving, loading, error, successMsg, loadFromGitHub, saveToGitHub, clearMessages } =
     useGitHubPersistence();
+
+  const autoSyncDone = useRef(false);
 
   useEffect(() => {
     const loadedConfig = localStorage.getItem(GITHUB_CONFIG_KEY);
@@ -55,6 +58,22 @@ export default function Home() {
       setLoaded(true);
     })();
   }, [setTeam]);
+
+  useEffect(() => {
+    if (!loaded || !gitHubConfig || autoSyncDone.current) return;
+    autoSyncDone.current = true;
+    (async () => {
+      setSyncing(true);
+      try {
+        const loaded = await loadFromGitHub(gitHubConfig);
+        if (loaded) {
+          setTeam(loaded);
+        }
+      } finally {
+        setSyncing(false);
+      }
+    })();
+  }, [loaded, gitHubConfig, loadFromGitHub, setTeam]);
 
   const handleSaveLocal = useCallback(async () => {
     await storageService.saveTeam(team);
@@ -128,7 +147,7 @@ export default function Home() {
           fontSize: 14,
         }}
       >
-        Cargando horarios...
+        {syncing ? 'Sincronizando datos...' : 'Cargando horarios...'}
       </div>
     );
   }
@@ -313,6 +332,19 @@ export default function Home() {
           onClose={() => setGitHubConfigModal(false)}
         />
       )}
+
+      <div
+        style={{
+          marginTop: '2rem',
+          padding: '0.5rem 0',
+          textAlign: 'center',
+          fontSize: 10,
+          color: 'var(--color-text-tertiary)',
+          borderTop: '0.5px solid var(--color-border-tertiary)',
+        }}
+      >
+        Build: {process.env.NEXT_PUBLIC_BUILD_TIME || 'dev'}
+      </div>
     </div>
   );
 }

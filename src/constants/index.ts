@@ -1,4 +1,19 @@
 import type { TeamMember, ShiftKey, ShiftStyle, AvatarColor } from '@/types';
+import teamData from '../../data/team.json';
+
+const rawTeam = (teamData as unknown) as TeamMember[];
+
+export const DEFAULT_TEAM: TeamMember[] =
+  rawTeam.length > 0
+    ? rawTeam
+    : [
+        { name: 'Ana Gómez', shift: 's1' as ShiftKey, colorIdx: 0, dayOverrides: {} },
+        { name: 'Luis Torres', shift: 's2' as ShiftKey, colorIdx: 1, dayOverrides: {} },
+        { name: 'María Ruiz', shift: 's3' as ShiftKey, colorIdx: 2, dayOverrides: {} },
+        { name: 'Carlos Díaz', shift: 's4' as ShiftKey, colorIdx: 3, dayOverrides: {} },
+        { name: 'Sofía Reyes', shift: 's1' as ShiftKey, colorIdx: 4, dayOverrides: {} },
+        { name: 'Andrés López', shift: '' as ShiftKey, colorIdx: 5, dayOverrides: {} },
+      ];
 
 export const ADMIN_PIN = process.env.NEXT_PUBLIC_ADMIN_PIN || '1632';
 
@@ -33,15 +48,6 @@ export const DAYS_ES = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 export const MONTHS_ES = [
   'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
   'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
-];
-
-export const DEFAULT_TEAM: TeamMember[] = [
-  { name: 'Ana Gómez',    shift: 's1', colorIdx: 0, dayOverrides: {} },
-  { name: 'Luis Torres',  shift: 's2', colorIdx: 1, dayOverrides: {} },
-  { name: 'María Ruiz',   shift: 's3', colorIdx: 2, dayOverrides: {} },
-  { name: 'Carlos Díaz',  shift: 's4', colorIdx: 3, dayOverrides: {} },
-  { name: 'Sofía Reyes',  shift: 's1', colorIdx: 4, dayOverrides: {} },
-  { name: 'Andrés López', shift: '',   colorIdx: 5, dayOverrides: {} },
 ];
 
 export const STORAGE_KEY = 'team_data_v3';
