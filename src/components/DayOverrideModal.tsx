@@ -58,15 +58,15 @@ export function DayOverrideModal({
           outline: 'none',
         }}
       >
-        <option value="__default__">
+        <option value="__default__" style={{ background: '#1a1a1a', color: '#f0f0f0' }}>
           🔄 Turno base ({member.shift ? SHIFT_LABELS[member.shift] : 'sin asignar'})
         </option>
         {SHIFT_KEYS.map((k) => (
-          <option key={k} value={k}>
+          <option key={k} value={k} style={{ background: '#1a1a1a', color: '#f0f0f0' }}>
             {SHIFT_LABELS[k]}
           </option>
         ))}
-        <option value="">❌ Sin turno (día libre)</option>
+        <option value="" style={{ background: '#1a1a1a', color: '#f0f0f0' }}>❌ Sin turno (día libre)</option>
       </select>
 
       <p style={{ fontSize: 11, color: '#707070', marginBottom: '1rem' }}>

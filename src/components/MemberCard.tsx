@@ -53,6 +53,9 @@ export function MemberCard({
             color: 'var(--color-text-primary)',
             textAlign: 'center',
             lineHeight: 1.3,
+            overflowWrap: 'break-word',
+            wordBreak: 'break-word',
+            width: '100%',
           }}
         >
           {member.name}
@@ -66,18 +69,19 @@ export function MemberCard({
               width: '100%',
               fontSize: 12,
               padding: compact ? '4px 6px' : '5px 8px',
-              border: '0.5px solid var(--color-border-secondary)',
+              border: '1px solid var(--color-border-secondary)',
               borderRadius: 8,
               background: 'var(--color-background-secondary)',
               color: 'var(--color-text-primary)',
               cursor: 'pointer',
+              transition: 'border-color 0.15s',
             }}
           >
-            <option value="">Sin turno</option>
-            <option value="s1">7:00 – 4:00</option>
-            <option value="s2">8:00 – 5:00</option>
-            <option value="s3">9:00 – 6:00</option>
-            <option value="s4">10:00 – 7:00</option>
+            <option value="" style={{ background: '#1e1e1e', color: '#f0f0f0' }}>Sin turno</option>
+            <option value="s1" style={{ background: '#1e1e1e', color: '#f0f0f0' }}>7:00 – 4:00</option>
+            <option value="s2" style={{ background: '#1e1e1e', color: '#f0f0f0' }}>8:00 – 5:00</option>
+            <option value="s3" style={{ background: '#1e1e1e', color: '#f0f0f0' }}>9:00 – 6:00</option>
+            <option value="s4" style={{ background: '#1e1e1e', color: '#f0f0f0' }}>10:00 – 7:00</option>
           </select>
         ) : member.shift ? (
           <ShiftBadge shift={member.shift} label={SHIFT_LABELS[member.shift]} size="md" />

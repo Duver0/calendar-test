@@ -90,11 +90,11 @@ export function AddMemberModal({ onAdd, onClose }: AddMemberModalProps) {
           outline: 'none',
         }}
       >
-        <option value="">Sin turno asignado</option>
-        <option value="s1">7:00 – 4:00</option>
-        <option value="s2">8:00 – 5:00</option>
-        <option value="s3">9:00 – 6:00</option>
-        <option value="s4">10:00 – 7:00</option>
+        <option value="" style={{ background: '#1a1a1a', color: '#f0f0f0' }}>Sin turno asignado</option>
+        <option value="s1" style={{ background: '#1a1a1a', color: '#f0f0f0' }}>7:00 – 4:00</option>
+        <option value="s2" style={{ background: '#1a1a1a', color: '#f0f0f0' }}>8:00 – 5:00</option>
+        <option value="s3" style={{ background: '#1a1a1a', color: '#f0f0f0' }}>9:00 – 6:00</option>
+        <option value="s4" style={{ background: '#1a1a1a', color: '#f0f0f0' }}>10:00 – 7:00</option>
       </select>
 
       <div
